@@ -53,18 +53,20 @@ public class DemoApplication {
 			ps.setObject(2, "init");
 			ps.executeUpdate();
 
-			if(true)
-				throw new RuntimeException("mock exception");
-
 			ps = conn.prepareStatement("INSERT INTO t_order (user_id, status) VALUES (?, ?)");
 			ps.setObject(1, 2000);
 			ps.setObject(2, "update");
 			ps.executeUpdate();
+			// 假设第二个update没成功发生异常
+			if(true)
+				throw new RuntimeException("mock exception");
 
 			conn.commit();
 		}catch(RuntimeException e){
 			if(conn != null)
 				conn.rollback();
+		}finally {
+			TransactionTypeHolder.clear();
 		}
 	}
 }
