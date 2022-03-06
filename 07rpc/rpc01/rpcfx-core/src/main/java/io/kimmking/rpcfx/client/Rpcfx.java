@@ -116,7 +116,7 @@ public class Rpcfx {
             return JSON.parse(response.getResult().toString());
         }
 
-        protected RpcfxResponse post(RpcfxRequest req, String url) {
+        protected RpcfxResponse post(RpcfxRequest req, String url) throws Throwable {
             String reqJson = JSON.toJSONString(req);
             System.out.println("req json: "+reqJson);
 
